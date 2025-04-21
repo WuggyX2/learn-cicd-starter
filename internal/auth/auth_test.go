@@ -10,7 +10,7 @@ import (
 func TestValidHeader(t *testing.T) {
 	testHeader := make(http.Header)
 	token := "1234567"
-	testHeader.Set("Authorization", "BorkBork "+token)
+	testHeader.Set("Authorization", "ApiKey "+token)
 	testHeader.Set("Content-Type", "application/json")
 
 	result, err := auth.GetAPIKey(testHeader)
