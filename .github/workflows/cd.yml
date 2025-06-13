@@ -5,9 +5,9 @@ on:
 
 env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GAR_LOCATION: "europe-north1" # e.g., us-central1, europe-west1, asia-east1
-  GAR_REPOSITORY: "notely-ar-repo" # The name of your Artifact Registry repository
-  IMAGE_NAME: "notely"
+  GAR_LOCATION: "europe-north1"
+  GAR_REPOSITORY: "notely-ar-repo"
+  IMAGE_NAME: "wuggyx2/notely"
 
 jobs:
   deploy:
