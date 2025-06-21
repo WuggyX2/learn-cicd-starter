@@ -8,6 +8,7 @@ env:
   GAR_LOCATION: "europe-north1"
   GAR_REPOSITORY: "notely-ar-repo"
   IMAGE_NAME: "wuggyx2/notely"
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   deploy:
@@ -25,6 +26,9 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.23.0"
+
+      - name: Set up Goose
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
 
       - name: Build
         run: ./scripts/buildprod.sh
@@ -55,6 +59,9 @@ jobs:
             --project=${{ env.GCP_PROJECT_ID }} \
             --tag "$IMAGE_TAG_SHA" \
             --tag "$IMAGE_TAG_LATEST" \
+
+      - name: Run db migrations
+        run: ./scripts/migrateup.sh
             .  
       - name: Deploy to Cloud Run
         run: |
